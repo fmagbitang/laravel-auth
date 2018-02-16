@@ -65,6 +65,7 @@ class SocialController extends Controller
                     $fullname[1] = '';
                 }
                 $username = $socialUserObject->nickname;
+                $avatar = $socialUserObject->getAvatar();
 
                 if ($username == null) {
                     foreach ($fullname as $name) {
@@ -87,6 +88,8 @@ class SocialController extends Controller
                 $socialData->social_id = $socialUserObject->id;
                 $socialData->provider = $provider;
                 $user->social()->save($socialData);
+                $profile->avatar = $avatar;
+                $profile->avatar_status = 1;
                 $user->attachRole($role);
                 $user->activated = true;
 
